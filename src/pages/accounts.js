@@ -1,15 +1,20 @@
 import Head from 'next/head';
 import { Box, Container } from '@mui/material';
-import { CustomerListResults } from '../components/customer/customer-list-results';
-import { CustomerListToolbar } from '../components/customer/customer-list-toolbar';
+import { AccountListResults } from '../components/account/account-list-results';
+import { AccountListToolbar } from '../components/account/account-list-toolbar';
 import { DashboardLayout } from '../components/dashboard-layout';
 import { customers } from '../__mocks__/customers';
+import { useEffect } from 'react';
 
-const Page = () => (
-  <>
+const Page = () => {
+  useEffect(() => {
+      console.log('recuperation des données');
+  }, []);
+
+  return (<>
     <Head>
       <title>
-        Customers | Material Kit
+        Accounts
       </title>
     </Head>
     <Box
@@ -20,14 +25,14 @@ const Page = () => (
       }}
     >
       <Container maxWidth={false}>
-        <CustomerListToolbar />
+        <AccountListToolbar/>
         <Box sx={{ mt: 3 }}>
-          <CustomerListResults customers={customers} />
+          <AccountListResults customers={customers}/>
         </Box>
       </Container>
     </Box>
-  </>
-);
+  </>)
+};
 
 Page.getLayout = (page) => (
   <DashboardLayout>

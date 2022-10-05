@@ -12,7 +12,7 @@ import { Download as DownloadIcon } from '../../icons/download';
 import { Search as SearchIcon } from '../../icons/search';
 import { Upload as UploadIcon } from '../../icons/upload';
 
-export const ProductListToolbar = (props) => (
+export const BookListToolbar = (props) => (
   <Box {...props}>
     <Box
       sx={{
@@ -27,26 +27,14 @@ export const ProductListToolbar = (props) => (
         sx={{ m: 1 }}
         variant="h4"
       >
-        Products
+        Books
       </Typography>
       <Box sx={{ m: 1 }}>
-        <Button
-          startIcon={(<UploadIcon fontSize="small" />)}
-          sx={{ mr: 1 }}
-        >
-          Import
-        </Button>
-        <Button
-          startIcon={(<DownloadIcon fontSize="small" />)}
-          sx={{ mr: 1 }}
-        >
-          Export
-        </Button>
         <Button
           color="primary"
           variant="contained"
         >
-          Add products
+          Add a book
         </Button>
       </Box>
     </Box>
