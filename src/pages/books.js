@@ -1,14 +1,21 @@
 import Head from 'next/head';
-import { Box, Container, Grid, Pagination } from '@mui/material';
-import { products } from '../__mocks__/products';
+import { Box, Container, } from '@mui/material';
 import { BookListToolbar } from '../components/book/book-list-toolbar';
-import { BookCard } from '../components/book/book-card';
 import { DashboardLayout } from '../components/dashboard-layout';
 import { useEffect } from 'react';
+import { useState } from 'react';
+import { fetchBooks } from '../services/library-api';
+import { BookListResults } from '../components/book/book-list-results';
 
 const Page = () => {
+  const [books, setBooks] = useState([]);
+
   useEffect(() => {
-    console.log('recuperation des données');
+    fetchBooks().then(books => {
+      setBooks(books);
+    }).catch(error => {
+      console.log(error);
+    });
   }, []);
   return <>
     <Head>
@@ -26,7 +33,7 @@ const Page = () => {
       <Container maxWidth={false}>
         <BookListToolbar/>
         <Box sx={{ pt: 3 }}>
-
+          <BookListResults books={books}/>
         </Box>
       </Container>
     </Box>

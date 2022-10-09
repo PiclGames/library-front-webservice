@@ -1,13 +1,14 @@
-const url = 'http://127.0.0.1:8080/'
+const url = 'http://127.0.0.1:8080'
 const headers = {
   'Accept': 'application/json',
   'Content-Type': 'application/json',
-  'Access-Control-Allow-Origin': '*'
+  'Access-Control-Allow-Origin': '**'
 }
 
 const publishBook = (book) => {
-  return fetch(`${url}/books`, {
+  return fetch(`${url}/books/`, {
     method: 'POST',
+    mode: 'no-cors',
     headers: headers,
     body: JSON.stringify(book)
   })
@@ -15,8 +16,9 @@ const publishBook = (book) => {
 }
 
 const publishBorrowing = (borrowing) => {
-  return fetch(`${url}/borrowings`, {
+  return fetch(`${url}/borrowings/`, {
     method: 'POST',
+    mode: 'no-cors',
     headers: headers,
     body: JSON.stringify(borrowing)
   })
@@ -24,8 +26,9 @@ const publishBorrowing = (borrowing) => {
 }
 
 const publishAuthor = (author) => {
-  return fetch(`${url}/authors`, {
+  return fetch(`${url}/authors/`, {
     method: 'POST',
+    mode: 'no-cors',
     headers: headers,
     body: JSON.stringify(author)
   })
@@ -33,8 +36,9 @@ const publishAuthor = (author) => {
 }
 
 const publishPublisher = (publisher) => {
-  return fetch(`${url}/publishers`, {
+  return fetch(`${url}/publishers/`, {
     method: 'POST',
+    mode: 'no-cors',
     headers: headers,
     body: JSON.stringify(publisher)
   })
@@ -42,8 +46,9 @@ const publishPublisher = (publisher) => {
 }
 
 const fetchAuthors = () => {
-  return fetch(`${url}/authors`, {
+  return fetch(`${url}/authors/`, {
     method: 'GET',
+    mode: 'no-cors',
     headers: headers,
   })
     .then(response => response.json())
@@ -51,8 +56,9 @@ const fetchAuthors = () => {
 }
 
 const fetchPublishers = () => {
-  return fetch(`${url}/publishers`,{
+  return fetch(`${url}/publishers/`,{
     method: 'GET',
+    mode: 'no-cors',
     headers: headers,
   })
     .then(response => response.json())
@@ -60,8 +66,9 @@ const fetchPublishers = () => {
 }
 
 const fetchBooks = () => {
-  return fetch(`${url}/books`, {
+  return fetch(`${url}/books/`, {
     method: 'GET',
+    mode: 'no-cors',
     headers: headers,
   })
     .then(response => response.json())
@@ -69,8 +76,9 @@ const fetchBooks = () => {
 }
 
 const fetchBorrowings = () => {
-  return fetch(`${url}/borrowings`, {
+  return fetch(`${url}/borrowings/`, {
     method: 'GET',
+    mode: 'no-cors',
     headers: headers,
   })
     .then(response => response.json())
@@ -80,6 +88,7 @@ const fetchBorrowings = () => {
 const deleteBook = (id) => {
   return fetch(`${url}/books/${id}`, {
     method: 'DELETE',
+    mode: 'no-cors',
     headers: headers,
   })
     .then(response => response.json())
@@ -89,6 +98,7 @@ const deleteBook = (id) => {
 const deleteBorrowing = (id) => {
   return fetch(`${url}/borrowings/${id}`, {
     method: 'DELETE',
+    mode: 'no-cors',
     headers: headers,
   })
     .then(response => response.json())
@@ -98,6 +108,7 @@ const deleteBorrowing = (id) => {
 const deleteAuthor = (id) => {
   return fetch(`${url}/authors/${id}`, {
     method: 'DELETE',
+    mode: 'no-cors',
     headers: headers,
   })
     .then(response => response.json())
@@ -107,6 +118,7 @@ const deleteAuthor = (id) => {
 const deletePublisher = (id) => {
   return fetch(`${url}/publishers/${id}`, {
     method: 'DELETE',
+    mode: 'no-cors',
     headers: headers,
   })
     .then(response => response.json())
@@ -116,5 +128,14 @@ const deletePublisher = (id) => {
 export {
   publishBook,
   fetchAuthors,
-  fetchPublishers
+  fetchPublishers,
+  fetchBorrowings,
+  fetchBooks,
+  deleteBook,
+  deleteBorrowing,
+  deleteAuthor,
+  deletePublisher,
+  publishBorrowing,
+  publishAuthor,
+  publishPublisher
 }

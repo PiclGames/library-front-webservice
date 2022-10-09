@@ -3,9 +3,15 @@ import {
   Button,
   Typography
 } from '@mui/material';
+import { PublisherModalAdd } from './publisher-modal-add';
+import { useState } from 'react';
 
-export const AccountListToolbar = (props) => (
-  <Box {...props}>
+export const PublisherListToolbar = (props) => {
+  const [open, setOpen] = useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+
+  return <Box {...props}>
     <Box
       sx={{
         alignItems: 'center',
@@ -19,16 +25,19 @@ export const AccountListToolbar = (props) => (
         sx={{ m: 1 }}
         variant="h4"
       >
-        Accounts
+        Authors
       </Typography>
       <Box sx={{ m: 1 }}>
         <Button
           color="primary"
           variant="contained"
+          onClick={handleOpen}
         >
-          Add an account
+          Add an author
         </Button>
+        <PublisherModalAdd open={open}
+                           onClose={handleClose}/>
       </Box>
     </Box>
   </Box>
-);
+};

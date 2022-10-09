@@ -24,8 +24,14 @@ export const BookModalAdd = (props) => {
 
   useEffect(() => {
     console.log('useEffect recuperation des données');
-    fetchAuthors().then(authors => setAuthors(authors));
-    fetchPublishers().then(publishers => setPublishers(publishers));
+    fetchAuthors().then(authors => {
+      setAuthors(authors);
+      console.log(authors);
+    });
+    fetchPublishers().then(publishers => {
+      setPublishers(publishers)
+      console.log(publishers);
+    });
     console.log('useEffect fin');
   }, []);
 
@@ -84,7 +90,7 @@ export const BookModalAdd = (props) => {
           fullWidth
           onChange={(event) => updateBook('author', event.target.value)}
         >
-          {Object.entries(authors).map((author ,index) => {
+          {authors && Object.entries(authors).map((author ,index) => {
             return <MenuItem key={index}
                              value={index}
             >
@@ -101,7 +107,7 @@ export const BookModalAdd = (props) => {
           fullWidth
           onChange={(event) => updateBook('publisher', event.target.value)}
         >
-          {Object.entries(publishers).map((publisher ,index) => {
+          {publishers && Object.entries(publishers).map((publisher ,index) => {
             return <MenuItem key={index}
                              value={index}
             >

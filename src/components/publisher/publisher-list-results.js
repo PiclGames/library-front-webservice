@@ -12,7 +12,7 @@ import {
   TableRow,
 } from '@mui/material';
 
-export const AccountListResults = ({ accounts, ...rest }) => {
+export const PublisherListResults = ({ publishers = [], ...rest }) => {
   const [limit, setLimit] = useState(10);
   const [page, setPage] = useState(0);
 
@@ -32,13 +32,7 @@ export const AccountListResults = ({ accounts, ...rest }) => {
             <TableHead>
               <TableRow>
                 <TableCell>
-                  First Name
-                </TableCell>
-                <TableCell>
-                  Last Name
-                </TableCell>
-                <TableCell>
-                  Email
+                  Name
                 </TableCell>
                 <TableCell>
                   Actions
@@ -46,19 +40,13 @@ export const AccountListResults = ({ accounts, ...rest }) => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {accounts && Object.entries(accounts).map((account) => (
+              {Object.entries(publishers).map((publisher) => (
                 <TableRow
                   hover
-                  key={account.id}
+                  key={publisher.id}
                 >
                   <TableCell>
-                    {account.firstName}
-                  </TableCell>
-                  <TableCell>
-                    {account.lastName}
-                  </TableCell>
-                  <TableCell>
-                    {account.email}
+                    {publisher.name}
                   </TableCell>
                   <TableCell>
                     {/* todo modification and delete buttons*/}
@@ -71,7 +59,7 @@ export const AccountListResults = ({ accounts, ...rest }) => {
       </PerfectScrollbar>
       <TablePagination
         component="div"
-        count={accounts ? accounts.length : 0}
+        count={publishers ? publishers.length : 0}
         onPageChange={handlePageChange}
         onRowsPerPageChange={handleLimitChange}
         page={page}
@@ -82,6 +70,6 @@ export const AccountListResults = ({ accounts, ...rest }) => {
   );
 };
 
-AccountListResults.propTypes = {
-  accounts: PropTypes.array.isRequired
+PublisherListResults.propTypes = {
+  publishers: PropTypes.array.isRequired
 };

@@ -1,13 +1,14 @@
-const url = 'http://127.0.0.1:9000/';
+const url = 'http://127.0.0.1:9000';
 const headers = {
   'Accept': 'application/json',
   'Content-Type': 'application/json',
-  'Access-Control-Allow-Origin': '*'
+  'Access-Control-Allow-Origin': '**'
 }
 
 const fetchConnectedUser = () => {
   return fetch(`${url}/principal`, {
     method: 'GET',
+    mode: 'no-cors',
     headers: headers,
   })
     .then(response => response.json())
@@ -17,6 +18,7 @@ const fetchConnectedUser = () => {
 const fetchRoles = () => {
   return fetch(`${url}/role`, {
     method: 'GET',
+    mode: 'no-cors',
     headers: headers,
   })
     .then(response => response.json())
@@ -26,6 +28,7 @@ const fetchRoles = () => {
 const fetchAccounts = () => {
   return fetch(`${url}/user`, {
     method: 'GET',
+    mode: 'no-cors',
     headers: headers,
   })
     .then(response => response.json())
@@ -35,6 +38,7 @@ const fetchAccounts = () => {
 const publishLibrarian = (account) => {
   return fetch(`${url}/librarian`, {
     method: 'POST',
+    mode: 'no-cors',
     headers: headers,
     body: JSON.stringify(account)
   })
@@ -44,6 +48,7 @@ const publishLibrarian = (account) => {
 const publishAgent = (account) => {
   return fetch(`${url}/agent`, {
     method: 'POST',
+    mode: 'no-cors',
     headers: headers,
     body: JSON.stringify(account)
   })
@@ -53,6 +58,7 @@ const publishAgent = (account) => {
 const publishUser = (account) => {
   return fetch(`${url}/user`, {
     method: 'POST',
+    mode: 'no-cors',
     headers: headers,
     body: JSON.stringify(account)
   })
@@ -62,6 +68,7 @@ const publishUser = (account) => {
 const deleteAccount = (id) => {
   return fetch(`${url}/user/${id}`, {
     method: 'DELETE',
+    mode: 'no-cors',
     headers: headers,
   })
     .then(response => response.json())
@@ -70,9 +77,20 @@ const deleteAccount = (id) => {
 const updateAccount = (id, account) => {
   return fetch(`${url}/user/${id}`, {
     method: 'PUT',
+    mode: 'no-cors',
     headers: headers,
     body: JSON.stringify(account)
   })
     .then(response => response.json())
 }
 
+export {
+  fetchConnectedUser,
+  fetchRoles,
+  fetchAccounts,
+  publishLibrarian,
+  publishAgent,
+  publishUser,
+  deleteAccount,
+  updateAccount
+}

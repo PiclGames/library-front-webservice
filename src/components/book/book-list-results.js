@@ -1,44 +1,20 @@
 import { useState } from 'react';
+import {
+  Box, Card,
+  Grid,
+  Pagination,
+  Table,
+  TableBody,
+  TableCell,
+  TableHead, TablePagination,
+  TableRow
+} from '@mui/material';
 import PropTypes from 'prop-types';
-import { Box, Grid, Pagination } from '@mui/material';
-import { BookCard } from './book-card';
+import PerfectScrollbar from 'react-perfect-scrollbar';
 
-export const BookListResults = ({ customers, ...rest }) => {
-  const [selectedCustomerIds, setSelectedCustomerIds] = useState([]);
+export const BookListResults = ({ books, ...rest }) => {
   const [limit, setLimit] = useState(10);
   const [page, setPage] = useState(0);
-
-  const handleSelectAll = (event) => {
-    let newSelectedCustomerIds;
-
-    if (event.target.checked) {
-      newSelectedCustomerIds = customers.map((customer) => customer.id);
-    } else {
-      newSelectedCustomerIds = [];
-    }
-
-    setSelectedCustomerIds(newSelectedCustomerIds);
-  };
-
-  const handleSelectOne = (event, id) => {
-    const selectedIndex = selectedCustomerIds.indexOf(id);
-    let newSelectedCustomerIds = [];
-
-    if (selectedIndex === -1) {
-      newSelectedCustomerIds = newSelectedCustomerIds.concat(selectedCustomerIds, id);
-    } else if (selectedIndex === 0) {
-      newSelectedCustomerIds = newSelectedCustomerIds.concat(selectedCustomerIds.slice(1));
-    } else if (selectedIndex === selectedCustomerIds.length - 1) {
-      newSelectedCustomerIds = newSelectedCustomerIds.concat(selectedCustomerIds.slice(0, -1));
-    } else if (selectedIndex > 0) {
-      newSelectedCustomerIds = newSelectedCustomerIds.concat(
-        selectedCustomerIds.slice(0, selectedIndex),
-        selectedCustomerIds.slice(selectedIndex + 1)
-      );
-    }
-
-    setSelectedCustomerIds(newSelectedCustomerIds);
-  };
 
   const handleLimitChange = (event) => {
     setLimit(event.target.value);
@@ -48,34 +24,68 @@ export const BookListResults = ({ customers, ...rest }) => {
     setPage(newPage);
   };
 
-  return (<><Grid
-    container
-    spacing={3}
-  >
-    {customers.map((product) => (
-      <Grid
-        item
-        key={product.id}
-        lg={4}
-        md={6}
-        xs={12}
-      >
-        <BookCard product={product}/>
-      </Grid>
-    ))}
-  </Grid>
-  <Box
-    sx={{
-      display: 'flex',
-      justifyContent: 'center',
-      pt: 3
-    }}
-  >
-    <Pagination
-      color="primary"
-      count={3}
-      size="small"
+  return <Card {...rest}>
+    <PerfectScrollbar>
+      <Box sx={{ minWidth: 1050 }}>
+        <Table>
+          <TableHead>
+            <TableRow>
+              <TableCell>
+                Name
+              </TableCell>
+              <TableCell>
+                Author
+              </TableCell>
+              <TableCell>
+                Publisher
+              </TableCell>
+              <TableCell>
+                Release Date
+              </TableCell>
+              <TableCell>
+                Actions
+              </TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {books && Object.entries(books).map((book) => (
+              <TableRow
+                hover
+                key={book.id}
+              >
+                <TableCell>
+                  {book.name}
+                </TableCell>
+                <TableCell>
+                  {book.author}
+                </TableCell>
+                <TableCell>
+                  {book.publisher}
+                </TableCell>
+                <TableCell>
+                  {book.releaseDate}
+                </TableCell>
+                <TableCell>
+                  {/* todo modification and delete buttons*/}
+                </TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </Box>
+    </PerfectScrollbar>
+    <TablePagination
+      component="div"
+      count={books ? books.length : 0}
+      onPageChange={handlePageChange}
+      onRowsPerPageChange={handleLimitChange}
+      page={page}
+      rowsPerPage={limit}
+      rowsPerPageOptions={[5, 10, 25]}
     />
-  </Box>
-</>)
+  </Card>
+};
+
+BookListResults.propTypes = {
+  books: PropTypes.array.isRequired
 };

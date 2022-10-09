@@ -1,15 +1,20 @@
 import Head from 'next/head';
-import { Box, Container, Grid, Pagination } from '@mui/material';
+import { Box, Container, } from '@mui/material';
 import { DashboardLayout } from '../components/dashboard-layout';
-import { useEffect } from 'react';
-import { AccountListResults } from '../components/account/account-list-results';
-import { customers } from '../__mocks__/customers';
+import { useEffect, useState } from 'react';
 import { BorrowingListToolbar } from '../components/borrowing/borrowing-list-toolbar';
 import { BorrowingListResults } from '../components/borrowing/borrowing-list-results';
+import { fetchBorrowings } from '../services/library-api';
 
 const Page = () => {
+  const [borrowings, setBorrowings] = useState([]);
+
   useEffect(() => {
-    console.log('recuperation des données');
+    fetchBorrowings().then(borrowings => {
+      setBorrowings(borrowings);
+    }).catch(error => {
+      console.log(error);
+    });
   }, []);
 
   return <>
@@ -28,7 +33,7 @@ const Page = () => {
       <Container maxWidth={false}>
         <BorrowingListToolbar/>
         <Box sx={{ mt: 3 }}>
-          <BorrowingListResults customers={customers}/>
+          <BorrowingListResults borrowings={borrowings}/>
         </Box>
       </Container>
     </Box>

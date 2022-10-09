@@ -16,7 +16,7 @@ const Page = () => (
         py: 8
       }}
     >
-      <CardContent maxWidth={false}>
+      <CardContent>
         <Typography
           sx={{
             borderRadius: 1,

@@ -12,7 +12,7 @@ import {
   TableRow,
 } from '@mui/material';
 
-export const BorrowingListResults = ({ customers, ...rest }) => {
+export const BorrowingListResults = ({ borrowings, ...rest }) => {
   const [limit, setLimit] = useState(10);
   const [page, setPage] = useState(0);
 
@@ -45,27 +45,33 @@ export const BorrowingListResults = ({ customers, ...rest }) => {
                   Borrowing creator
                 </TableCell>
                 <TableCell>
+                  Duration
+                </TableCell>
+                <TableCell>
                   Actions
                 </TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
-              {customers.slice(0, limit).map((customer) => (
+              {borrowings && Object.entries(borrowings).map((borrowing) => (
                 <TableRow
                   hover
-                  key={customer.id}
+                  key={borrowing.id}
                 >
                   <TableCell>
-                    {customer.name}
+                    {borrowing.book}
                   </TableCell>
                   <TableCell>
-                    {customer.email}
+                    {borrowing.user}
                   </TableCell>
                   <TableCell>
-                    {`${customer.address.city}, ${customer.address.state}, ${customer.address.country}`}
+                    {borrowing.borrowingCreator}
                   </TableCell>
                   <TableCell>
-                    {customer.phone}
+                    {borrowing.date}
+                  </TableCell>
+                  <TableCell>
+                    {borrowing.duration}
                   </TableCell>
                   <TableCell>
                     {/* todo modification and delete buttons*/}
@@ -79,7 +85,7 @@ export const BorrowingListResults = ({ customers, ...rest }) => {
       </PerfectScrollbar>
       <TablePagination
         component="div"
-        count={customers.length}
+        count={borrowings ? borrowings.length : 0}
         onPageChange={handlePageChange}
         onRowsPerPageChange={handleLimitChange}
         page={page}
@@ -91,5 +97,5 @@ export const BorrowingListResults = ({ customers, ...rest }) => {
 };
 
 BorrowingListResults.propTypes = {
-  customers: PropTypes.array.isRequired
+  borrowings: PropTypes.array.isRequired
 };

@@ -3,12 +3,18 @@ import { Box, Container } from '@mui/material';
 import { AccountListResults } from '../components/account/account-list-results';
 import { AccountListToolbar } from '../components/account/account-list-toolbar';
 import { DashboardLayout } from '../components/dashboard-layout';
-import { customers } from '../__mocks__/customers';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
+import { fetchAccounts } from '../services/auth-api';
 
 const Page = () => {
+  const [accounts, setAccounts] = useState([]);
+
   useEffect(() => {
-      console.log('recuperation des données');
+    fetchAccounts().then(accounts => {
+      setAccounts(accounts);
+    }).catch(error => {
+      console.log(error);
+    });
   }, []);
 
   return (<>
@@ -27,7 +33,7 @@ const Page = () => {
       <Container maxWidth={false}>
         <AccountListToolbar/>
         <Box sx={{ mt: 3 }}>
-          <AccountListResults customers={customers}/>
+          <AccountListResults accounts={accounts}/>
         </Box>
       </Container>
     </Box>

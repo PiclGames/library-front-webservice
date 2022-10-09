@@ -12,7 +12,7 @@ import {
   TableRow,
 } from '@mui/material';
 
-export const AccountListResults = ({ accounts, ...rest }) => {
+export const AuthorListResults = ({ authors = [], ...rest }) => {
   const [limit, setLimit] = useState(10);
   const [page, setPage] = useState(0);
 
@@ -38,27 +38,21 @@ export const AccountListResults = ({ accounts, ...rest }) => {
                   Last Name
                 </TableCell>
                 <TableCell>
-                  Email
-                </TableCell>
-                <TableCell>
                   Actions
                 </TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
-              {accounts && Object.entries(accounts).map((account) => (
+              {authors && Object.entries(authors).map((author) => (
                 <TableRow
                   hover
-                  key={account.id}
+                  key={author.id}
                 >
                   <TableCell>
-                    {account.firstName}
+                    {author.firstName}
                   </TableCell>
                   <TableCell>
-                    {account.lastName}
-                  </TableCell>
-                  <TableCell>
-                    {account.email}
+                    {author.lastName}
                   </TableCell>
                   <TableCell>
                     {/* todo modification and delete buttons*/}
@@ -71,7 +65,7 @@ export const AccountListResults = ({ accounts, ...rest }) => {
       </PerfectScrollbar>
       <TablePagination
         component="div"
-        count={accounts ? accounts.length : 0}
+        count={authors ? authors.length : 0}
         onPageChange={handlePageChange}
         onRowsPerPageChange={handleLimitChange}
         page={page}
@@ -82,6 +76,6 @@ export const AccountListResults = ({ accounts, ...rest }) => {
   );
 };
 
-AccountListResults.propTypes = {
-  accounts: PropTypes.array.isRequired
+AuthorListResults.propTypes = {
+  authors: PropTypes.array.isRequired
 };
