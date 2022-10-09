@@ -6,13 +6,21 @@ import {
   TextField,
   InputAdornment,
   SvgIcon,
-  Typography
+  Typography,
+  Modal, Select, InputLabel, MenuItem, Checkbox, ListItemText
 } from '@mui/material';
-import { Download as DownloadIcon } from '../../icons/download';
 import { Search as SearchIcon } from '../../icons/search';
-import { Upload as UploadIcon } from '../../icons/upload';
+import { useState } from 'react';
+import { BookModalAdd } from './book_modal_add';
 
-export const BookListToolbar = (props) => (
+
+
+export const BookListToolbar = (props) => {
+  const [open, setOpen] = useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+
+  return (
   <Box {...props}>
     <Box
       sx={{
@@ -33,9 +41,13 @@ export const BookListToolbar = (props) => (
         <Button
           color="primary"
           variant="contained"
+          onClick={handleOpen}
         >
           Add a book
         </Button>
+        <BookModalAdd open={open}
+                      handleClose={handleClose}
+        />
       </Box>
     </Box>
     <Box sx={{ mt: 3 }}>
@@ -56,12 +68,12 @@ export const BookListToolbar = (props) => (
                   </InputAdornment>
                 )
               }}
-              placeholder="Search product"
+              placeholder="Search a book"
               variant="outlined"
             />
           </Box>
         </CardContent>
       </Card>
     </Box>
-  </Box>
-);
+  </Box>)
+};

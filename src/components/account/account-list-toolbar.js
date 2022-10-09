@@ -55,7 +55,7 @@ export const AccountListToolbar = (props) => (
                   </InputAdornment>
                 )
               }}
-              placeholder="Search customer"
+              placeholder="Search an account"
               variant="outlined"
             />
           </Box>

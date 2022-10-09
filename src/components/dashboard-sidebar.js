@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+
 import NextLink from 'next/link';
 import { useRouter } from 'next/router';
 import PropTypes from 'prop-types';
@@ -31,6 +31,16 @@ const items = [
     title: 'Borrowings'
   },
   {
+    href: '/publishers',
+    icon: (<LockIcon fontSize="small" />), // todo changer icon
+    title: 'Publishers'
+  },
+  {
+    href: '/authors',
+    icon: (<LockIcon fontSize="small" />), // todo changer icon
+    title: 'Authors'
+  },
+  {
     href: '/login',
     icon: (<LockIcon fontSize="small" />),
     title: 'Login'
@@ -44,20 +54,6 @@ export const DashboardSidebar = (props) => {
     defaultMatches: true,
     noSsr: false
   });
-
-  useEffect(
-    () => {
-      if (!router.isReady) {
-        return;
-      }
-
-      if (open) {
-        onClose?.();
-      }
-    },
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [router.asPath]
-  );
 
   const content = (
     <>

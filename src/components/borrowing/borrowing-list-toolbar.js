@@ -53,7 +53,7 @@ export const BorrowingListToolbar = (props) => (
                   </InputAdornment>
                 )
               }}
-              placeholder="Search customer"
+              placeholder="Search a borrow"
               variant="outlined"
             />
           </Box>
