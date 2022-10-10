@@ -1,0 +1,69 @@
+services:
+  #Redis
+  redis:
+    image: redis:latest
+    container_name: redis
+    ports:
+      - "6379:6379"
+    healthcheck:
+      test: [ "CMD", "redis-cli", "--raw", "incr", "ping" ]
+      timeout: 20s
+      retries: 10
+
+  #Database
+  api-auth-db:
+    image: mysql:latest
+    container_name: api-auth-db
+    environment:
+      - MYSQL_ROOT_PASSWORD=toto
+      - MYSQL_DATABASE=ensibrary_auth
+    ports:
+      - "3306:3306"
+    healthcheck:
+      test: [ "CMD", "mysqladmin" ,"ping", "-h", "localhost" ]
+      timeout: 20s
+      retries: 10
+    volumes:
+      - api-auth-db:/var/lib/mysql
+
+  #Authentication API
+  api-auth:
+    image: libraryauthapi:latest
+    container_name: api-auth
+    build: https://github.com/Vixi9/libraryAuthApi.git
+    ports:
+      - "9000:9000"
+    volumes:
+      - .m2:/root/.m2
+    depends_on:
+      api-auth-db:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+
+  #Books API
+  api:
+    image: libraryapi:latest
+    container_name: api
+    build: https://github.com/Vixi9/libraryAPI.git
+    ports:
+      - "8080:8080"
+    volumes:
+      - .m2:/root/.m2
+    depends_on:
+      - api-auth
+
+  #Frontend
+  front:
+    image: library:latest
+    container_name: front
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    depends_on:
+      - api
+
+volumes:
+  api-auth-db:
