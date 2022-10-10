@@ -33,7 +33,7 @@ export const PublisherListToolbar = (props) => {
           variant="contained"
           onClick={handleOpen}
         >
-          Add an author
+          Add a publisher
         </Button>
         <PublisherModalAdd open={open}
                            onClose={handleClose}/>

@@ -11,7 +11,7 @@ const Page = () => {
 
   useEffect(() => {
     fetchAccounts().then(accounts => {
-      setAccounts(accounts);
+      if(accounts) setAccounts(accounts);
     }).catch(error => {
       console.log(error);
     });

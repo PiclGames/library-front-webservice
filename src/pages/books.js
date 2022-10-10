@@ -12,7 +12,7 @@ const Page = () => {
 
   useEffect(() => {
     fetchBooks().then(books => {
-      setBooks(books);
+      if(books) setBooks(books);
     }).catch(error => {
       console.log(error);
     });

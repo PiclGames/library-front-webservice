@@ -8,6 +8,7 @@ import { Lock as LockIcon } from '../icons/lock';
 import MenuBookIcon from '@mui/icons-material/MenuBook';
 import { Users as UsersIcon } from '../icons/users';
 import { NavItem } from './nav-item';
+import { AddShoppingCart } from '@mui/icons-material';
 
 const items = [
   {
@@ -27,7 +28,7 @@ const items = [
   },
   {
     href: '/borrowings',
-    icon: (<LockIcon fontSize="small" />), // todo changer icon
+    icon: (<AddShoppingCart fontSize="small"/>), // todo changer icon
     title: 'Borrowings'
   },
   {

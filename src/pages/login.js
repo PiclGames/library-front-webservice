@@ -1,19 +1,20 @@
 import Head from 'next/head';
 import NextLink from 'next/link';
-import Router from 'next/router';
-import { useFormik } from 'formik';
-import * as Yup from 'yup';
 import { Box, Button, Container, Link, TextField, Typography } from '@mui/material';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import Router from 'next/router';
+import { login } from '../services/auth-api';
+import { useFormik } from 'formik';
+import * as Yup from 'yup';
 
 const Login = () => {
   const formik = useFormik({
     initialValues: {
-      email: 'demo@devias.io',
-      password: 'Password123'
+      email: 'admin@email.com',
+      password: 'admin'
     },
     validationSchema: Yup.object({
-      email: Yup
+      username: Yup
         .string()
         .email('Must be a valid email')
         .max(255)
@@ -27,6 +28,7 @@ const Login = () => {
       Router
         .push('/')
         .catch(console.error);
+      login(formik.values).then(r => console.log(r));
     }
   });
 
@@ -45,17 +47,6 @@ const Login = () => {
         }}
       >
         <Container maxWidth="sm">
-          <NextLink
-            href="/"
-            passHref
-          >
-            <Button
-              component="a"
-              startIcon={<ArrowBackIcon fontSize="small" />}
-            >
-              Dashboard
-            </Button>
-          </NextLink>
           <form onSubmit={formik.handleSubmit}>
             <Box sx={{ my: 3 }}>
               <Typography

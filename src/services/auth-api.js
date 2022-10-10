@@ -5,6 +5,16 @@ const headers = {
   'Access-Control-Allow-Origin': '**'
 }
 
+const login = (username, password) => {
+  return fetch(`${url}/login`, {
+    method: 'POST',
+    mode: 'no-cors',
+    headers: headers,
+    body: JSON.stringify({username, password})
+  })
+    .then(response => response.json())
+}
+
 const fetchConnectedUser = () => {
   return fetch(`${url}/principal`, {
     method: 'GET',
@@ -92,5 +102,6 @@ export {
   publishAgent,
   publishUser,
   deleteAccount,
-  updateAccount
+  updateAccount,
+  login
 }
