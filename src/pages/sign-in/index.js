@@ -4,9 +4,7 @@ import NextLink from 'next/link';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { Box, Button, FormHelperText, Grid, Tab, Tabs, TextField, Typography } from '@mui/material';
-import { auth, ENABLE_AUTH } from '../../lib/auth';
 import { Logo } from '../../components/logo';
-import { useAuthContext } from '../../contexts/auth-context';
 import Router from 'next/router';
 
 const Page = () => {
