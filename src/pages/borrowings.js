@@ -11,7 +11,7 @@ const Page = () => {
 
   useEffect(() => {
     fetchBorrowings().then(borrowings => {
-      setBorrowings(borrowings);
+      if(borrowings) setBorrowings(borrowings);
     }).catch(error => {
       console.log(error);
     });

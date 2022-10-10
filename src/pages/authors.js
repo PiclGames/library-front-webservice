@@ -13,7 +13,7 @@ const Page = () => {
 
   useEffect(() => {
     fetchAuthors().then(authors => {
-      setAuthors(authors);
+      if(authors) setAuthors(authors);
     }).catch(error => {
       console.log(error);
     });

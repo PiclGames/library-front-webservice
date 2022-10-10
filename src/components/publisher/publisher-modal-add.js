@@ -44,7 +44,7 @@ export const PublisherModalAdd = (props) => {
                     fontSize: '1.5rem',
                   }}
       >
-        Adding an author
+        Adding a publisher
       </Typography>
 
       <Typography id="modal-modal-description"
@@ -52,7 +52,7 @@ export const PublisherModalAdd = (props) => {
       >
         <InputLabel htmlFor="name-book"
                     sx={{ mt: 4 }}
-        >First Name</InputLabel>
+        >Name</InputLabel>
         <TextField
           id={"name-book"}
           fullWidth
@@ -60,15 +60,6 @@ export const PublisherModalAdd = (props) => {
         >
         </TextField>
 
-        <InputLabel htmlFor="author-book"
-                    sx={{ mt: 4 }}
-        >Last Name</InputLabel>
-        <TextField
-          id={"name-book"}
-          fullWidth
-          onChange={(event) => updateBook('lastName', event.target.value)}
-        >
-        </TextField>
       </Typography>
       <Box sx={{
         mt: 6,
