@@ -1,4 +1,3 @@
-import { Fragment } from 'react';
 import Head from 'next/head';
 import { CacheProvider } from '@emotion/react';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
@@ -8,12 +7,16 @@ import { ThemeProvider } from '@mui/material/styles';
 import { createEmotionCache } from '../utils/create-emotion-cache';
 import { registerChartJs } from '../utils/register-chart-js';
 import { theme } from '../theme';
+import { useCookies } from 'react-cookie';
+import Login from './login';
 
 registerChartJs();
 
 const clientSideEmotionCache = createEmotionCache();
 
 const App = (props) => {
+  const [ cookie, , ] = useCookies(['SESSION']);
+
   const { Component, emotionCache = clientSideEmotionCache, pageProps } = props;
 
   const getLayout = Component.getLayout ?? ((page) => page);
@@ -32,9 +35,10 @@ const App = (props) => {
       <LocalizationProvider dateAdapter={AdapterDateFns}>
         <ThemeProvider theme={theme}>
           <CssBaseline />
-              {
-                getLayout(<Component {...pageProps} />)
-              }
+          {
+            //if we have JSESSION cookie then we are logged in else router.push('/login')
+            cookie.SESSION ? getLayout(<Component {...pageProps} />) : <Login/>
+          }
         </ThemeProvider>
       </LocalizationProvider>
     </CacheProvider>

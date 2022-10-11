@@ -2,17 +2,21 @@ const url = 'http://127.0.0.1:9000';
 const headers = {
   'Accept': 'application/json',
   'Content-Type': 'application/json',
-  'Access-Control-Allow-Origin': '**'
+  'Access-Control-Allow-Origin': '*'
 }
 
 const login = (username, password) => {
   return fetch(`${url}/login`, {
     method: 'POST',
-    mode: 'no-cors',
     headers: headers,
+    mode: 'no-cors',
     body: JSON.stringify({username, password})
   })
-    .then(response => response.json())
+    .then(response => {
+      console.log(response.json());
+      return response.json();
+    })
+    .catch(error => console.log(error))
 }
 
 const fetchConnectedUser = () => {

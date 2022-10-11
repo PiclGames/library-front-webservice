@@ -2,7 +2,7 @@ const url = 'http://127.0.0.1:8080'
 const headers = {
   'Accept': 'application/json',
   'Content-Type': 'application/json',
-  'Access-Control-Allow-Origin': '**'
+  'Access-Control-Allow-Origin': '**',
 }
 
 const publishBook = (book) => {

@@ -1,36 +1,39 @@
 import Head from 'next/head';
-import NextLink from 'next/link';
-import { Box, Button, Container, Link, TextField, Typography } from '@mui/material';
-import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import { Box, Button, Container, TextField, Typography } from '@mui/material';
 import Router from 'next/router';
 import { login } from '../services/auth-api';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
+import { useCookies } from 'react-cookie';
 
 const Login = () => {
   const formik = useFormik({
     initialValues: {
-      email: 'admin@email.com',
-      password: 'admin'
+      username: '',
+      password: ''
     },
     validationSchema: Yup.object({
       username: Yup
         .string()
-        .email('Must be a valid email')
         .max(255)
-        .required('Email is required'),
+        .required('Username is required'),
       password: Yup
         .string()
         .max(255)
         .required('Password is required')
-    }),
-    onSubmit: () => {
-      Router
-        .push('/')
-        .catch(console.error);
-      login(formik.values).then(r => console.log(r));
-    }
+    })
   });
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    login(formik.values.username, formik.values.password).then((res) => {
+      if(res.status === 404) {
+        Router.push('/');
+      }
+    }).catch((error) => {
+      console.log(error);
+    });
+  }
 
   return (
     <>
@@ -47,33 +50,33 @@ const Login = () => {
         }}
       >
         <Container maxWidth="sm">
-          <form onSubmit={formik.handleSubmit}>
+          <form onSubmit={handleSubmit}>
             <Box sx={{ my: 3 }}>
               <Typography
                 color="textPrimary"
                 variant="h4"
               >
-                Sign in
+                Login
               </Typography>
               <Typography
                 color="textSecondary"
                 gutterBottom
                 variant="body2"
               >
-                Sign in on the internal platform
+                Login on the library app
               </Typography>
             </Box>
             <TextField
-              error={Boolean(formik.touched.email && formik.errors.email)}
+              error={Boolean(formik.touched.username && formik.errors.username)}
               fullWidth
-              helperText={formik.touched.email && formik.errors.email}
-              label="Email Address"
+              helperText={formik.touched.username && formik.errors.username}
+              label="Username"
               margin="normal"
-              name="email"
+              name="username"
               onBlur={formik.handleBlur}
               onChange={formik.handleChange}
-              type="email"
-              value={formik.values.email}
+              type="username"
+              value={formik.values.username}
               variant="outlined"
             />
             <TextField
@@ -98,30 +101,9 @@ const Login = () => {
                 type="submit"
                 variant="contained"
               >
-                Sign In Now
+                Sign In
               </Button>
             </Box>
-            <Typography
-              color="textSecondary"
-              variant="body2"
-            >
-              Don&apos;t have an account?
-              {' '}
-              <NextLink
-                href="/register"
-              >
-                <Link
-                  to="/register"
-                  variant="subtitle2"
-                  underline="hover"
-                  sx={{
-                    cursor: 'pointer'
-                  }}
-                >
-                  Sign Up
-                </Link>
-              </NextLink>
-            </Typography>
           </form>
         </Container>
       </Box>
