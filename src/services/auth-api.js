@@ -1,53 +1,57 @@
 const url = 'http://127.0.0.1:9000';
 const headers = {
   'Accept': 'application/json',
-  'Content-Type': 'application/json',
-  'Access-Control-Allow-Origin': '*'
-}
+  'Access-Control-Allow-Origin': '*s'
+};
 
 const login = (username, password) => {
+  const formData = new URLSearchParams();
+  formData.append('username', username);
+  formData.append('password', password);
   return fetch(`${url}/login`, {
     method: 'POST',
+    mode: 'cors',
+    credentials: 'include',
     headers: headers,
-    mode: 'no-cors',
-    body: JSON.stringify({username, password})
+    body: formData
   })
     .then(response => {
-      console.log(response.json());
-      return response.json();
+      return response
     })
-    .catch(error => console.log(error))
-}
+    .catch(error => console.log(error));
+};
 
 const fetchConnectedUser = () => {
   return fetch(`${url}/principal`, {
     method: 'GET',
-    mode: 'no-cors',
-    headers: headers,
+    mode: 'cors',
+    headers: headers
   })
-    .then(response => response.json())
-    .catch(error => console.log(error))
-}
+    .then(response => {
+      return response
+    })
+    .catch(error => console.log(error));
+};
 
 const fetchRoles = () => {
   return fetch(`${url}/role`, {
     method: 'GET',
     mode: 'no-cors',
-    headers: headers,
+    headers: headers
   })
     .then(response => response.json())
-    .catch(error => console.log(error))
-}
+    .catch(error => console.log(error));
+};
 
 const fetchAccounts = () => {
   return fetch(`${url}/user`, {
     method: 'GET',
     mode: 'no-cors',
-    headers: headers,
+    headers: headers
   })
     .then(response => response.json())
-    .catch(error => console.log(error))
-}
+    .catch(error => console.log(error));
+};
 
 const publishLibrarian = (account) => {
   return fetch(`${url}/librarian`, {
@@ -56,8 +60,8 @@ const publishLibrarian = (account) => {
     headers: headers,
     body: JSON.stringify(account)
   })
-    .then(response => response.json())
-}
+    .then(response => response.json());
+};
 
 const publishAgent = (account) => {
   return fetch(`${url}/agent`, {
@@ -66,8 +70,8 @@ const publishAgent = (account) => {
     headers: headers,
     body: JSON.stringify(account)
   })
-    .then(response => response.json())
-}
+    .then(response => response.json());
+};
 
 const publishUser = (account) => {
   return fetch(`${url}/user`, {
@@ -76,17 +80,17 @@ const publishUser = (account) => {
     headers: headers,
     body: JSON.stringify(account)
   })
-    .then(response => response.json())
-}
+    .then(response => response.json());
+};
 
 const deleteAccount = (id) => {
   return fetch(`${url}/user/${id}`, {
     method: 'DELETE',
     mode: 'no-cors',
-    headers: headers,
+    headers: headers
   })
-    .then(response => response.json())
-}
+    .then(response => response.json());
+};
 
 const updateAccount = (id, account) => {
   return fetch(`${url}/user/${id}`, {
@@ -95,8 +99,8 @@ const updateAccount = (id, account) => {
     headers: headers,
     body: JSON.stringify(account)
   })
-    .then(response => response.json())
-}
+    .then(response => response.json());
+};
 
 export {
   fetchConnectedUser,
@@ -108,4 +112,4 @@ export {
   deleteAccount,
   updateAccount,
   login
-}
+};

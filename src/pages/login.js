@@ -1,10 +1,9 @@
 import Head from 'next/head';
 import { Box, Button, Container, TextField, Typography } from '@mui/material';
-import Router from 'next/router';
-import { login } from '../services/auth-api';
+import { fetchConnectedUser, login } from '../services/auth-api';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
-import { useCookies } from 'react-cookie';
+import Router from 'next/router';
 
 const Login = () => {
   const formik = useFormik({
@@ -27,8 +26,8 @@ const Login = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     login(formik.values.username, formik.values.password).then((res) => {
-      if(res.status === 404) {
-        Router.push('/');
+      if(res.status === 200) {
+        Router.push('/books');
       }
     }).catch((error) => {
       console.log(error);

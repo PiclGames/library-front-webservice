@@ -1,13 +1,13 @@
-front de l'api librairie dans le cadre du cours de webservice
+Frontend de l'API librairie dans le cadre du cours de webservice
 ENSICAEN 2022
 
 Lucas Thomassin, Victor Brionne et Anthoine Guespin
 
+## Prérequis
 
-## Installation
+[Docker](https://docs.docker.com/engine/install/) et [Docker-compose](https://docs.docker.com/compose/install/) (ou [Docker-desktop](https://www.docker.com/get-started/))
 
-- Installer les dépendances: `npm install` or `yarn`
+## Démarrage de l'application
 
-- Allumer le serveur: `npm run dev` or `yarn dev`
+Dans un terminal, éxécuter la commande ``docker-compose up --build -d``. Les services démarrent au bout de quelques minutes. Après ce délai aller sur [http://localhost:3000](http://localhost:3000) pour ouvrir l'application dans le navigateur.
 
-- Les vues sont sur: `localhost:3000`
